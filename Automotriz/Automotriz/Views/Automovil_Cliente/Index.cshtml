@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+<label>@Html.ViewBag.Folio</label>
+<label>@Html.ViewBag.NombreCliente</label>
+
+<button Id="btn_nuevoautomovil" class="btn btn-success">
+    Agregar Automovil
+</button>
+
+
+<div class="card my-2">
+    <div class="card-body">
+        <div class="">
+            <style>
+                .table-hover th {
+                    text-align: center;
+                    background-color: #bbbbbb;
+                }
+            </style>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="rgba-stylish-strong">
+                        <div class="container-fluid">
+                            <div class="d-flex">
+                                <div class="p-3 h5 " style="color:white">Solicitudes de etiquetas realizadas</div>
+
+                                <div class="ml-auto p-2">
+                                    <div class="d-flex">
+                                        <button type="button" class="btn bg-transparent btn-sm" onclick="GridReload()">
+
+                                            <span id="ContentRefresh" style="color:white" class="fas fa-sync-alt fa-lg"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--//Metodo y controlador-->
+                    @*@Html.Action("Grid_AutosCliente", "Automovil")*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="IdModalReg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div id="FormRegNew">
+
+        </div>
+    </div>
+</div>
+<!--//Metodo que se va a ejecutar-->
+<script>
+    //Boton el nombre de un componente html boton, evento , 1 solicitud get al metodo Nuevo_Automovil, se acomoda la info y luego muestras el modal
+    $("#btn_nuevoautomovil").click(function () {
+
+            $.get('@Url.Action("Nuevo_Automovil")', function (data) {
+                $("#FormRegNew").html(data);
+                $("#IdModalReg").modal('show');
+            });
+        });
+
+
+</script>
+

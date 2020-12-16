@@ -1,0 +1,33 @@
+﻿
+@model IQueryable<Automotriz.Models.Modelos_Usuario.Grid_cliente_modelo>
+    @*//VISTAS PARCIALES NO TIENEN LAYOUT*@
+@{ Layout = null; }
+
+@(Html.Grid(Model).Build(columns =>
+{
+
+    columns.Add(model => model.Numero).Titled("Clave");
+    columns.Add(model => model.Nombre).Titled("Solicitante");
+    //columns.Add(model => model.Linea).Titled("Linea");
+    //columns.Add(model => model.Modelo).Titled("Catalogo");
+    //columns.Add(model => model.Estado).Titled("Estado");
+
+    //columns.Add(model => model.POLES).Titled("Polos");
+
+    //columns.Add(model => model.TIPO).Titled("Tipo");
+    //columns.Add(model => model.STATUS).Titled("Estado");
+
+    //columns.Add(model => model.Age).Titled("Age");
+    //columns.Add(model => model.Birthday).Titled("Birthday").Formatted("{0:d}");
+    //columns.Add(model => model.IsWorking).Titled("Employed");
+    
+    //Es para actualizar los datos " unicamente en el grid no toda la pagina"
+    //A donde ira el grid a buscar los datos/recargar los datos sin recargar la vista
+}).UsingSourceUrl(Url.Action("Grid_Index")).Empty("No data found").Filterable().Sortable().Pageable(pager =>
+{
+    //Para separar los datos 
+    pager.PageSizes = new Dictionary<Int32, String> { { 20, "20" }, { 50, "50" }, { 0, "All" } };
+    pager.ShowPageSizes = true;
+    //id que hace referencia a los registros /modal que muestre la info del registro
+}).Css("css-classes").AppendCss("table-hover").RowAttributed(model => new { data_id = model.IdCliente })
+    )

@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<button Id="btn_nuevoregistro" class="btn btn-success">
+    Nuevo Registro
+</button>
+
+<input type="type" name="name" value="" />
+<div class="card my-2">
+    <div class="card-body">
+        <div class="">
+            <style>
+                .table-hover th {
+                    text-align: center;
+                    background-color: #bbbbbb;
+                }
+            </style>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="rgba-stylish-strong">
+                        <div class="container-fluid">
+                            <div class="d-flex">
+                                <div class="p-3 h5 " style="color:white">Solicitudes de etiquetas realizadas</div>
+
+                                <div class="ml-auto p-2">
+                                    <div class="d-flex">
+                                        <button type="button" class="btn bg-transparent btn-sm" onclick="GridReload()">
+
+                                            <span id="ContentRefresh" style="color:white" class="fas fa-sync-alt fa-lg"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--//Metodo y controlador-->
+                    @Html.Action("Grid_Index", "Clientes")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //metodo para recargar el grid
+    function GridReload() { new MvcGrid(document.querySelector('.mvc-grid')).reload(); }
+</script>
+
+<script>
+        //Codigo java script
+        document.addEventListener('rowclick', function (e) {
+            var IdB = e.target.dataset.id;
+            //Codigo razor (te pongo el valor en doble comillas y lo reemplazo para que sea aceptado)
+            $.get('@Url.Action("Actualizar_Cliente", "Clientes", new { Id = "Id" })'.replace("Id", IdB), function (data) {
+                $("#FormRegNew").html(data);
+                $("#IdModalReg").modal('show');
+            });
+            
+        });
+</script>
+<div class="modal fade" id="IdModalReg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div id="FormRegNew">
+
+        </div>
+    </div>
+</div>
+<!--//Metodo que se va a ejecutar-->
+<script>
+    $("#btn_nuevoregistro").click(function () {
+            
+            $.get('@Url.Action("Nuevo_Cliente")', function (data) {
+                $("#FormRegNew").html(data);
+                $("#IdModalReg").modal('show');
+            });
+        });
+
+
+</script>
+

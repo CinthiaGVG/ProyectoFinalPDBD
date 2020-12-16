@@ -1,0 +1,152 @@
+﻿@model Automotriz.Models.Modelos_Usuario.Cliente_Modelo
+
+@using (Ajax.BeginForm("Actualizar_Cliente", "Clientes", new AjaxOptions
+{
+    HttpMethod = "POST",
+    //post porque vas a menter datos
+    UpdateTargetId = "FormRegNew",
+    OnSuccess = "Actualizar_Reg_Success"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-content">
+        <div class="modal-header" style="padding: 0.3rem 1rem;">
+            <h4 class="modal-title h5 w-100" id="myModalLabel">Nuevo Registro</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            @Html.HiddenFor(Model=>Model.IdCliente)
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+
+                    </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FechaNac, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FechaNac, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaNac, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sexo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sexo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TelCasa, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TelCasa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TelCasa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TelCel, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TelCel, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TelCel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RFC, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RFC, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RFC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                    @Html.LabelFor(model => model.IdMunicipio, "IdMunicipio", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.DropDownListFor(model => model.IdMunicipio, ViewBag.IdMunicipio as SelectList, "Seleccionar", new { @class = "browser-default custom-select" })*@ @Html.DropDownListFor(model => model.IdMunicipio, new SelectList(ViewBag.Municipio,
+                   "Id",
+                   "Text"
+                   ) , "Seleccionar", new { @class = "browser-default custom-select" })
+                    @Html.ValidationMessageFor(model => model.IdMunicipio, "", new { @class = "text-danger" })
+                </div>
+                </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.IdEstado_Cliente, "IdEstado_Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("IdEstado_Cliente", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdEstado_Cliente, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+        </div>
+        <div class="modal-footer" style="padding:0">
+            <div class="row">
+
+                <div class="col align-self-end">
+                    <input type="button" value="Some text" onclick="window.location.href = '@Url.Action("Index", "Automovil",new { Id="_Id_"})'.replace('_Id_',@(Model.IdCliente));" />
+                    <button type="submit" class="btn btn-success   ">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+    //Metodo que se ejecuta cuando todo fue correcto
+    function Actualizar_Reg_Success(data) {
+        //Para imprimir en la consola del navegador para saber si entra o no el switch
+        console.log(data);
+        switch (data.flag) {
+            case 1:
+                //cerrar el modal
+                $("#IdModalReg").modal('hide');
+                GridReload();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                break;
+        }
+
+
+
+    }
+
+</script>
+
